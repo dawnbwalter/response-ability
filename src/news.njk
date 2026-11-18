@@ -1,0 +1,15 @@
+---
+layout: layouts/list.njk
+title: Interviews and articles
+permalink: /news/
+lede: Edited interviews with podcast guests, articles, reading lists and news from the summits.
+---
+{% for y in [2022, 2021, 2020, 2019] %}
+{% set items = collections.reading | byYear(y) %}
+{% if items.length %}
+<h2 class="year-heading" id="y{{ y }}">{{ y }}</h2>
+<div class="cards">
+  {% for item in items %}{% include "partials/card.njk" %}{% endfor %}
+</div>
+{% endif %}
+{% endfor %}

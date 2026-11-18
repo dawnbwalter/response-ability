@@ -1,0 +1,19 @@
+---
+layout: layouts/list.njk
+title: Speakers
+permalink: /speakers/
+lede: Keynotes, panellists, stream leads, PechaKucha speakers and moderators from 2019 to 2021.
+---
+{% for y in [2021, 2020, 2019] %}
+{% set items = collections.speaker | byYear(y) %}
+{% if items.length %}
+<h2 class="year-heading" id="y{{ y }}">{{ y }}</h2>
+<div class="cards cards-people">
+  {% for item in items %}
+  <article class="card"><a class="card-link" href="{{ item.url }}">
+    {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% else %}<div class="card-ph" aria-hidden="true">#</div>{% endif %}
+    <h3 style="margin-top:14px">{{ item.data.title }}</h3></a></article>
+  {% endfor %}
+</div>
+{% endif %}
+{% endfor %}

@@ -1,0 +1,9 @@
+---
+layout: layouts/list.njk
+title: The podcast
+permalink: /podcast/
+lede: Conversations with people across disciplines and sectors about how we respond to the problems tech creates. Every episode comes with show notes, and many with a transcript or an edited interview.
+---
+<ul class="ep-list">
+  {% for item in collections.podcastByEpisode %}{% include "partials/episode-row.njk" %}{% endfor %}
+</ul>

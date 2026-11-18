@@ -1,0 +1,12 @@
+{
+  "name": "Response-ability",
+  "url": "https://response-ability.tech",
+  "description": "From 2019 to 2021, the Response-ability Summit brought social scientists and technologists together. Every talk, interview and podcast episode is kept here, free to watch, read and listen to.",
+  "nav": [
+    { "label": "Podcast", "url": "/podcast/" },
+    { "label": "Interviews & articles", "url": "/news/" },
+    { "label": "Talks", "url": "/talks/" },
+    { "label": "Summits", "url": "/summits/" },
+    { "label": "About", "url": "/about/" }
+  ]
+}

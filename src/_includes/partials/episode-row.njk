@@ -1,0 +1,8 @@
+<li class="ep">
+  <span class="ep-num" aria-hidden="true">{{ item.data.episode }}</span>
+  <div>
+    <h3><a href="{{ item.url }}"><span class="sr-only">Episode {{ item.data.episode }}: </span>{{ item.data.shortTitle or item.data.title }}</a></h3>
+    <p>{% if item.data.guest %}With {{ item.data.guest }}, {% endif %}{{ item.data.date | monthYear }}</p>
+  </div>
+  <a class="pill play" href="{{ item.url }}" aria-label="Listen to episode {{ item.data.episode }}"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l15 8-15 8z"/></svg>Listen</a>
+</li>

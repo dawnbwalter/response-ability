@@ -1,0 +1,16 @@
+---
+layout: layouts/list.njk
+title: Workshops
+permalink: /workshops/
+lede: Hands-on sessions taught by experts from around the world, free to summit attendees.
+---
+{% for y in [2021, 2020] %}
+{% set items = collections.workshop | byYear(y) %}
+{% if items.length %}
+<h2 class="year-heading" id="y{{ y }}">{{ y }}</h2>
+{% if y == 2021 %}<p class="section-intro" style="margin:-8px 0 28px">More about the format on the <a href="/workshops-2021/">2021 workshops page</a>.</p>{% endif %}
+<div class="cards">
+  {% for item in items %}{% include "partials/card.njk" %}{% endfor %}
+</div>
+{% endif %}
+{% endfor %}

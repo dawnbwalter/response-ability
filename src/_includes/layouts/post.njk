@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+---
+{%- set related = collections[kind] | excludeUrl(page.url) | limit(4) -%}
+{%- set sectionUrl = {"podcast":"/podcast/","interview":"/news/","article":"/news/","news":"/news/","talk":"/talks/","speaker":"/speakers/","workshop":"/workshops/"}[kind] -%}
+{%- set sectionName = {"podcast":"Podcast","interview":"Interviews & articles","article":"Interviews & articles","news":"Interviews & articles","talk":"Talks","speaker":"Speakers","workshop":"Workshops"}[kind] -%}
+<article data-pagefind-body>
+  <span hidden data-pagefind-filter="type:{{ kindLabel }}"></span>
+  <span hidden data-pagefind-filter="year:{{ year }}"></span>
+  <span hidden data-pagefind-meta="date:{{ date | monthYear }}"></span>
+  {% if image %}<span hidden data-pagefind-meta="image:{{ image }}"></span>{% endif %}
+  <header class="post-hero{% if not image %} no-image{% endif %}">
+    <div class="wrap post-top">
+      <div>
+        <p class="crumb" data-pagefind-ignore><a href="{{ sectionUrl }}">{{ sectionName }}</a>{% if episode %} / Episode {{ episode }}{% endif %}</p>
+        {% if episode %}<div class="ep-big" aria-hidden="true">{{ episode }}</div>{% endif %}
+        <h1 data-pagefind-meta="title">{{ shortTitle or title }}</h1>
+        <p class="post-meta" data-pagefind-ignore>{% if guest %}With {{ guest }}. {% endif %}{% if kind == "speaker" %}{{ year }} speaker{% else %}{{ kindLabel }}, {{ date | longDate }}{% endif %}</p>
+      </div>
+      {% if image %}<img class="post-image{% if kind == 'speaker' %} portrait{% endif %}" src="{{ image }}" alt="" data-pagefind-ignore>{% endif %}
+    </div>
+  </header>
+  <div class="wrap post-body">
+    <div class="prose">
+{{ content | safe }}
+    </div>
+    <aside class="post-aside" data-pagefind-ignore>
+      {% if related.length %}
+      <h2>More {{ sectionName | lower }}</h2>
+      <ul class="mini-list">
+        {% for r in related %}<li><a href="{{ r.url }}">{% if r.data.episode %}<span class="mini-num">{{ r.data.episode }}</span>{% endif %}<span>{{ r.data.shortTitle or r.data.title }}</span></a></li>{% endfor %}
+      </ul>
+      <p><a class="text-link" href="{{ sectionUrl }}">See all</a></p>
+      {% endif %}
+      <div class="aside-box">
+        <h2>Looking for something?</h2>
+        <form action="/search/" role="search"><label class="sr-only" for="aside-q">Search the archive</label><input id="aside-q" name="q" type="search" placeholder="Search the archive"></form>
+      </div>
+    </aside>
+  </div>
+</article>

@@ -1,0 +1,121 @@
+---
+layout: layouts/base.njk
+title: Search
+permalink: /search/
+---
+<section class="search-hero">
+  <div class="wrap">
+    <h1 class="sr-only">Search the archive</h1>
+    <form id="search-form" role="search">
+      <label class="search-label" for="sq">Search the archive</label>
+      <div class="searchbox" style="max-width:760px">
+        <input id="sq" name="q" type="search" autocomplete="off" placeholder="Try privacy, health data, anthropology…">
+        <button type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+</section>
+<div class="wrap search-layout">
+  <aside class="filters" aria-label="Filters">
+    <h2>Show</h2>
+    <div class="f-type" id="f-type"></div>
+    <h2>Year</h2>
+    <div class="f-year" id="f-year"></div>
+  </aside>
+  <section class="results" aria-live="polite">
+    <p class="r-summary" id="r-summary">Type a word or name to search every podcast episode, interview, talk, speaker and workshop.</p>
+    <ul class="r-list" id="r-list"></ul>
+    <button class="more-btn" id="more" type="button" hidden>Show more results</button>
+  </section>
+</div>
+<noscript><div class="wrap"><p>Search needs JavaScript. You can also browse the <a href="/podcast/">podcast</a>, <a href="/news/">interviews and articles</a> or <a href="/talks/">talks</a>.</p></div></noscript>
+<script type="module">
+const TYPES = [["", "Everything"], ["Podcast", "Podcast episodes"], ["Interview", "Interviews"], ["Article", "Articles"], ["News", "News"], ["Talk", "Talks"], ["Speaker", "Speakers"], ["Workshop", "Workshops"], ["Page", "Summit pages"]];
+const YEARS = ["", "2019", "2020", "2021", "2022"];
+const PAGE = 10;
+const params = new URLSearchParams(location.search);
+const state = { q: params.get("q") || "", type: params.get("type") || "", year: params.get("year") || "", shown: PAGE };
+const $ = (id) => document.getElementById(id);
+const input = $("sq");
+input.value = state.q;
+
+let pagefind;
+try {
+  pagefind = await import("/pagefind/pagefind.js");
+  await pagefind.init();
+  await pagefind.filters(); // loads the filter index so searches return counts
+} catch (e) {
+  $("r-summary").textContent = "Search isn't available right now. Browse the podcast, interviews or talks from the menu instead.";
+}
+
+let results = [];
+let counts = {};
+let yearCounts = {};
+
+function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+
+function renderFilters() {
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  $("f-type").innerHTML = TYPES.map(([id, label]) => {
+    const n = id ? (counts[id] || 0) : total;
+    if (id && !n && state.type !== id) return "";
+    return `<button type="button" class="fbtn" data-type="${id}" aria-pressed="${state.type === id}"><span>${label}</span><span class="n">${n}</span></button>`;
+  }).join("");
+  $("f-year").innerHTML = YEARS.map((y) => {
+    if (y && !(yearCounts[y]) && state.year !== y) return "";
+    return `<button type="button" class="fbtn" data-year="${y}" aria-pressed="${state.year === y}">${y || "Any"}</button>`;
+  }).join("");
+}
+
+async function renderResults() {
+  const slice = results.slice(0, state.shown);
+  const data = await Promise.all(slice.map((r) => r.data()));
+  $("r-list").innerHTML = data.map((d) => {
+    const type = (d.filters.type || [""])[0];
+    const img = d.meta.image ? `<img src="${esc(d.meta.image)}" alt="" loading="lazy">` : `<div class="r-ph" aria-hidden="true">#</div>`;
+    const when = d.meta.date ? `, ${esc(d.meta.date)}` : "";
+    return `<li class="r-item">${img}<div><p class="r-meta"><span class="hash">#</span>${esc(type.toLowerCase())}${when}</p><h3><a href="${esc(d.url)}">${esc(d.meta.title)}</a></h3><p class="r-excerpt">${d.excerpt}</p></div></li>`;
+  }).join("");
+  $("more").hidden = results.length <= state.shown;
+}
+
+async function run() {
+  if (!pagefind) return;
+  const url = new URL(location.href);
+  ["q", "type", "year"].forEach((k) => state[k] ? url.searchParams.set(k, state[k]) : url.searchParams.delete(k));
+  history.replaceState(null, "", url);
+  const filters = {};
+  if (state.type) filters.type = state.type;
+  if (state.year) filters.year = state.year;
+  if (!state.q && !state.type && !state.year) {
+    results = []; counts = {}; yearCounts = {};
+    const all = await pagefind.filters();
+    counts = all.type || {}; yearCounts = all.year || {};
+    renderFilters();
+    $("r-list").innerHTML = ""; $("more").hidden = true;
+    $("r-summary").textContent = "Type a word or name to search every podcast episode, interview, talk, speaker and workshop.";
+    return;
+  }
+  const search = await pagefind.search(state.q || null, { filters });
+  results = search.results;
+  // counts for each filter, ignoring that filter's own selection
+  const typeSearch = state.type ? await pagefind.search(state.q || null, { filters: state.year ? { year: state.year } : {} }) : search;
+  const yearSearch = state.year ? await pagefind.search(state.q || null, { filters: state.type ? { type: state.type } : {} }) : search;
+  counts = (typeSearch.filters && typeSearch.filters.type) || {};
+  yearCounts = (yearSearch.filters && yearSearch.filters.year) || {};
+  renderFilters();
+  const n = results.length;
+  const what = state.q ? ` for “${state.q}”` : "";
+  $("r-summary").textContent = n ? `${n} ${n === 1 ? "result" : "results"}${what}` : `Nothing matches${what}${state.type || state.year ? " with those filters. Try Everything or Any year." : ". Try a different word or a person's name."}`;
+  await renderResults();
+}
+
+let timer;
+input.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => { state.q = input.value.trim(); state.shown = PAGE; run(); }, 200); });
+$("search-form").addEventListener("submit", (e) => { e.preventDefault(); state.q = input.value.trim(); state.shown = PAGE; run(); });
+$("f-type").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; state.type = b.dataset.type; state.shown = PAGE; run(); });
+$("f-year").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; state.year = b.dataset.year; state.shown = PAGE; run(); });
+$("more").addEventListener("click", () => { state.shown += PAGE; renderResults(); });
+run();
+if (!state.q) input.focus();
+</script>

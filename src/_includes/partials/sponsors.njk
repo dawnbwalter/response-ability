@@ -1,0 +1,14 @@
+{%- set logos = [
+  ["microsoft", "Microsoft UK"], ["spotify", "Spotify"], ["ukri", "UKRI Economic and Social Research Council"],
+  ["stripe", "Stripe Partners"], ["rocketmakers", "Rocketmakers"], ["bristol", "University of Bristol Digital Futures Institute"],
+  ["humanshow", "The Human Show"], ["techspark", "techSPARK"], ["yoti", "Yoti"], ["ddc", "Danish Design Centre"]
+] -%}
+<div class="sponsors">
+  <div class="sponsors-text">
+    <h2>With thanks to our sponsors and supporters</h2>
+    <p>Microsoft UK, Spotify, UKRI (ESRC), Stripe Partners, Rocketmakers, University of Bristol Digital Futures, The Human Show, techSPARK, Yoti, Danish Design Centre</p>
+  </div>
+  <ul class="logos">
+    {% for l in logos %}<li><img src="/assets/img/logos/{{ l[0] }}.png" alt="{{ l[1] }}" loading="lazy"></li>{% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+---
+<article data-pagefind-body>
+  <span hidden data-pagefind-filter="type:Page"></span>
+  <header class="page-hero">
+    <div class="wrap">
+      <h1 data-pagefind-meta="title">{{ title }}</h1>
+      {% if lede %}<p class="lede">{{ lede }}</p>{% endif %}
+    </div>
+  </header>
+  <div class="wrap page-body">
+    <div class="prose prose-wide">
+{{ content | safe }}
+    </div>
+  </div>
+</article>

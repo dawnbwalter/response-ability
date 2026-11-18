@@ -1,0 +1,83 @@
+---
+layout: layouts/base.njk
+title: Response-ability
+permalink: /
+---
+{%- set people = [
+  ["/wp-content/uploads/2021/03/Lianne-Potter-300x300-1.jpg", "Lianne Potter"],
+  ["/wp-content/uploads/2021/03/Thea_Snow.jpg", "Thea Snow"],
+  ["/wp-content/uploads/2020/05/Ben-Green-650x650-1.jpg", "Ben Green"],
+  ["/wp-content/uploads/2020/02/Aisha-Thomas.jpg", "Aisha Thomas"],
+  ["/wp-content/uploads/2021/03/GEMMA-GALDON-505x505-1.jpg", "Gemma Galdon-Clavell"],
+  ["/wp-content/uploads/2021/03/Astrid_Willis-Countee.jpg", "Astrid Countee"]
+] -%}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Building a future where socially-responsible tech is the norm.</h1>
+      <p class="lede">From 2019 to 2021, the Response-ability Summit brought social scientists and technologists together. Every talk, interview and podcast episode is kept here, free to watch, read and listen to.</p>
+      <form role="search" action="/search/">
+        <label class="search-label" for="q">Search the archive</label>
+        <div class="searchbox">
+          <input id="q" name="q" type="search" placeholder="Try privacy, health data, anthropology…">
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      <div class="chips" aria-label="Browse by type">
+        <a class="chip" href="/podcast/"><span class="hash">#</span>podcast</a>
+        <a class="chip" href="/news/"><span class="hash">#</span>interviews</a>
+        <a class="chip" href="/talks/"><span class="hash">#</span>talks</a>
+        <a class="chip" href="/workshops/"><span class="hash">#</span>workshops</a>
+        <a class="chip" href="/speakers/"><span class="hash">#</span>speakers</a>
+      </div>
+    </div>
+    <div class="collage-wrap">
+      <div class="collage-hash" aria-hidden="true">#</div>
+      <div class="collage">
+        {% for p in people %}<img src="{{ p[0] }}" alt="{{ p[1] }}">{% endfor %}
+      </div>
+      <p class="collage-note">A few of the speakers and podcast guests in the archive.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>The podcast</h2>
+        <p>{{ collections.podcast.length }} conversations with people across disciplines and sectors about how we respond to the problems tech creates.</p>
+      </div>
+      <a class="text-link" href="/podcast/">All {{ collections.podcast.length }} episodes</a>
+    </div>
+    <ul class="ep-list">
+      {% for item in collections.podcastByEpisode | limit(5) %}{% include "partials/episode-row.njk" %}{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section-lilac">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Interviews and articles</h2>
+      <a class="text-link" href="/news/">Read them all</a>
+    </div>
+    <div class="cards">
+      {% for item in collections.reading | withImage | limit(3) %}{% include "partials/card.njk" %}{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Three summits</h2>
+    <p class="section-intro" style="margin-bottom:44px">Business leaders, academics and innovators from AI, data science, law, medicine and the social sciences, in one room and then online.</p>
+    {% include "partials/years.njk" %}
+  </div>
+</section>
+
+<section style="padding:0 0 96px">
+  <div class="wrap">
+    {% include "partials/sponsors.njk" %}
+  </div>
+</section>
