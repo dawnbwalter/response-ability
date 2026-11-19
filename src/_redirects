@@ -62,3 +62,5 @@
 /articles/:slug/   /:slug/   301
 /buy-your-ticket/*   /   301
 /w02-dancing-with-the-trouble-of-ai/*   /w03-dancing-with-the-trouble-of-ai/   301
+/sitemap_index.xml                         /sitemap.xml      301
+/*-sitemap.xml                            /sitemap.xml      301
