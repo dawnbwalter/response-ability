@@ -265,3 +265,6 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
 .prose .person-bio summary { cursor: pointer; font-size: 15px; font-weight: 600; color: var(--indigo); text-decoration: underline; text-underline-offset: 3px; }
 .prose .person-bio summary:hover { color: var(--orange-dark); }
 .prose .person-bio p { font-family: var(--serif); font-size: 16px; line-height: 1.55; margin: 8px 0 0; }
+
+/* Talk slides are 16:9: show them whole */
+.cards-wide .card img, .cards-wide .card-ph { aspect-ratio: 16 / 9; }
