@@ -159,7 +159,6 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .prose h4, .prose h5 { font-size: 21px; font-weight: 700; }
 .prose img { display: block; border-radius: 16px; margin: 1.4em 0; }
 .prose p img { display: inline-block; margin: 0.4em 1em 0.6em 0; vertical-align: top; }
-.prose img[width="150"], .prose img[width="200"], .prose img[width="300"] { float: right; margin: 0.3em 0 1em 1.4em; max-width: 40%; }
 .prose h2, .prose h3, .prose h4, .prose ul, .prose ol, .prose blockquote, .prose iframe { clear: both; }
 .prose blockquote { border-left: 4px solid var(--orange); padding: 4px 0 4px 24px; margin-left: 0; font-style: italic; }
 .prose iframe.video { width: 100%; aspect-ratio: 16/9; height: auto; border: 0; border-radius: 16px; display: block; margin: 1.4em 0; background: #000; }
@@ -226,7 +225,6 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
   .logos img { height: 26px; max-width: 110px; }
   .post-image.portrait { justify-self: start; max-width: 240px; }
   .prose { font-size: 19px; }
-  .prose img[width="150"], .prose img[width="200"], .prose img[width="300"] { float: none; margin: 1em 0; max-width: 60%; }
   .filters { max-width: none; }
   .r-item img, .r-item .r-ph { width: 64px; height: 64px; }
 }
@@ -268,3 +266,11 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
 
 /* Talk slides are 16:9: show them whole */
 .cards-wide .card img, .cards-wide .card-ph { aspect-ratio: 16 / 9; }
+
+/* Small images and captioned photos sit to the right with the text wrapping around them */
+.prose figure { margin: 1.4em 0; }
+.prose figure img { margin: 0; }
+.prose figure.float { float: right; width: min(260px, 42%); margin: 0.35em 0 1.2em 1.8em; }
+.prose figure.float img { width: 100%; height: auto; border-radius: 14px; }
+.prose figcaption { font-family: var(--sans); font-size: 14px; line-height: 1.4; color: var(--muted); margin-top: 8px; }
+@media (max-width: 600px) { .prose figure.float { width: 44%; margin-left: 1.1em; } }
