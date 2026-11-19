@@ -280,3 +280,8 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
 .prose p:has(> img.wrap-img), .prose p:has(> a > img.wrap-img), .prose p:has(> strong > img.wrap-img), .prose p:has(> em > img.wrap-img) { clear: right; }
 /* Photos the old site cut into circles: show them as clean circles */
 .prose img.round { border-radius: 50%; background: transparent; }
+
+/* Footer podcast and YouTube links */
+.site-footer ul.social { display: flex; gap: 10px; margin: 22px 0 0; line-height: 1; }
+.site-footer .social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; }
+.site-footer .social a:hover, .site-footer .social a:focus-visible { background: rgba(255,255,255,.22); }
