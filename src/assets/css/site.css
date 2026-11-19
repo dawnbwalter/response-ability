@@ -247,3 +247,16 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
 /* Sponsor logo rows inside pages: equal white tiles, logos scaled to fit */
 .prose .logo-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 0 0 1.6em; clear: both; }
 .prose .logo-row img { display: block; width: 100%; height: 76px; object-fit: contain; background: #fff; border-radius: 14px; padding: 16px 22px; margin: 0; float: none; max-width: none; box-sizing: border-box; }
+
+/* Speaker grids inside pages */
+.prose .people { list-style: none; padding: 0; margin: 0 0 2em; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; font-family: var(--sans); clear: both; }
+.prose .people-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.prose .people li { margin: 0; }
+.prose .people a { display: block; text-decoration: none; color: var(--ink); }
+.prose .people img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 16px; margin: 0 0 12px; float: none; max-width: none; }
+.prose .people-2 img { max-width: 280px; }
+.prose .person-name { display: block; font-size: 18px; font-weight: 700; line-height: 1.25; }
+.prose .people-2 .person-name { font-size: 22px; }
+.prose .person-role { display: block; margin-top: 4px; font-size: 15px; line-height: 1.4; color: var(--muted); }
+.prose .people a:hover .person-name { color: var(--orange-dark); text-decoration: underline; }
+@media (max-width: 700px) { .prose .people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; } }
