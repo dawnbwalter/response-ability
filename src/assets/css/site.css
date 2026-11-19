@@ -274,3 +274,5 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
 .prose figure.float img { width: 100%; height: auto; border-radius: 14px; }
 .prose figcaption { font-family: var(--sans); font-size: 14px; line-height: 1.4; color: var(--muted); margin-top: 8px; }
 @media (max-width: 600px) { .prose figure.float { width: 44%; margin-left: 1.1em; } }
+.prose img.wrap-img { float: right; width: min(180px, 38%); height: auto; margin: 0.3em 0 0.8em 1.6em; border-radius: 14px; display: block; }
+@media (max-width: 600px) { .prose img.wrap-img { width: 40%; margin-left: 1em; } }
