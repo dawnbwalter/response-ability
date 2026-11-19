@@ -4,12 +4,12 @@ title: Response-ability
 permalink: /
 ---
 {%- set people = [
-  ["/wp-content/uploads/2021/03/Lianne-Potter-300x300-1.jpg", "Lianne Potter"],
-  ["/wp-content/uploads/2021/03/Thea_Snow.jpg", "Thea Snow"],
-  ["/wp-content/uploads/2020/05/Ben-Green-650x650-1.jpg", "Ben Green"],
-  ["/wp-content/uploads/2020/02/Aisha-Thomas.jpg", "Aisha Thomas"],
-  ["/wp-content/uploads/2021/03/GEMMA-GALDON-505x505-1.jpg", "Gemma Galdon-Clavell"],
-  ["/wp-content/uploads/2021/03/Astrid_Willis-Countee.jpg", "Astrid Countee"]
+  ["/wp-content/uploads/2019/06/Simon_Roberts.png", "Simon Roberts"],
+  ["/wp-content/uploads/2019/03/Julien-Cornebise-e1551801520889-1024x1024.jpg", "Julien Cornebise"],
+  ["/wp-content/uploads/2020/03/susie_alegre.jpg", "Susie Alegre"],
+  ["/wp-content/uploads/2021/03/Rakhi-Rajani_.jpeg", "Rakhi Rajani"],
+  ["/wp-content/uploads/2021/03/Susan-Halford_.jpg", "Susan Halford"],
+  ["/wp-content/uploads/2020/04/Nani-Jansen.jpg", "Nani Jansen Reventlow"]
 ] -%}
 <section class="hero">
   <div class="wrap hero-grid">
@@ -32,7 +32,6 @@ permalink: /
       </div>
     </div>
     <div class="collage-wrap">
-      <div class="collage-hash" aria-hidden="true">#</div>
       <div class="collage">
         {% for p in people %}<img src="{{ p[0] }}" alt="{{ p[1] }}">{% endfor %}
       </div>
