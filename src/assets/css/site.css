@@ -207,7 +207,7 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
 .site-footer .copy { margin: 56px 0 0; font-size: 14px; color: #A59FD0; }
 
 @media (max-width: 900px) {
-  .wrap { padding: 0 20px; }
+  .wrap { padding-left: 20px; padding-right: 20px; }
   .hero-grid, .post-top, .years, .foot, .cards { grid-template-columns: minmax(0, 1fr); }
   .cards-people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .collage-hash { font-size: 420px; top: -80px; right: -40px; }
@@ -231,3 +231,15 @@ mark { background: #FFD9BF; color: var(--ink); padding: 0 2px; border-radius: 3p
   .r-item img, .r-item .r-ph { width: 64px; height: 64px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+
+/* Photo grids from the old site: same-size tiles, three across */
+.prose .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 1.6em; clear: both; }
+.prose .gallery img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px; margin: 0; float: none; max-width: none; display: block; }
+@media (max-width: 600px) { .prose .gallery { gap: 8px; } .prose .gallery img { border-radius: 8px; } }
+.prose .gallery-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 600px) { .prose .gallery-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) {
+  .search-link { padding: 10px 12px; font-size: 0; gap: 0; }
+  .search-link svg { width: 18px; height: 18px; }
+  .search-link::after { content: ""; }
+}
