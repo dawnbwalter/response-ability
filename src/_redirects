@@ -24,7 +24,7 @@
 /category/at-2020-videos/*                /talks/           301
 /category/*                               /news/            301
 /tag/*                                    /search/          301
-/feed/*                                   /podcast/         301
+/feed/*                                   /feed.xml         301
 /wp-admin/*                               /                 301
 /wp-login.php                             /                 301
 

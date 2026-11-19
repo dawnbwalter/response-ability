@@ -17,7 +17,7 @@ layout: layouts/base.njk
         <h1 data-pagefind-meta="title">{{ shortTitle or title }}</h1>
         <p class="post-meta" data-pagefind-ignore>{% if guest %}With {{ guest }}. {% endif %}{% if kind == "speaker" %}{{ year }} speaker{% else %}{{ kindLabel }}, {{ date | longDate }}{% endif %}</p>
       </div>
-      {% if image %}<img class="post-image{% if kind == 'speaker' %} portrait{% endif %}" src="{{ image }}" alt="" data-pagefind-ignore>{% endif %}
+      {% if image %}<img class="post-image{% if kind == 'speaker' %} portrait{% endif %}" src="{{ image }}" alt="{% if kind == 'speaker' %}{{ title }}{% elif kind == 'podcast' %}Episode artwork{% if guest %} with {{ guest }}{% endif %}{% else %}{{ title }}{% endif %}" data-pagefind-ignore>{% endif %}
     </div>
   </header>
   <div class="wrap post-body">
