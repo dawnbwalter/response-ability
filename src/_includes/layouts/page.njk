@@ -3,6 +3,7 @@ layout: layouts/base.njk
 ---
 <article data-pagefind-body>
   <span hidden data-pagefind-filter="type:Page"></span>
+  {% if year %}<span hidden data-pagefind-filter="year:{{ year }}"></span>{% endif %}
   <header class="page-hero">
     <div class="wrap">
       <h1 data-pagefind-meta="title">{{ title }}</h1>

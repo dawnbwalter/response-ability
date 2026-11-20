@@ -107,7 +107,12 @@ async function run() {
   renderFilters();
   const n = results.length;
   const what = state.q ? ` for “${state.q}”` : "";
-  $("r-summary").textContent = n ? `${n} ${n === 1 ? "result" : "results"}${what}` : `Nothing matches${what}${state.type || state.year ? " with those filters. Try Everything or Any year." : ". Try a different word or a person's name."}`;
+  const filtered = state.type || state.year;
+  const label = [state.type && (TYPES.find(([id]) => id === state.type) || [, state.type])[1], state.year].filter(Boolean).join(", ");
+  $("r-summary").innerHTML = esc(n ? `${n} ${n === 1 ? "result" : "results"}${what}` : `Nothing matches${what}`) +
+    (filtered ? ` <span class="r-filtered">in ${esc(label)}. <button type="button" class="linkish" id="clear-filters">Show all results</button></span>` : (n ? "" : ". Try a different word or a person's name."));
+  const clr = $("clear-filters");
+  if (clr) clr.addEventListener("click", () => { state.type = ""; state.year = ""; state.shown = PAGE; run(); });
   await renderResults();
 }
 
